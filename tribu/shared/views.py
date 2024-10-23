@@ -17,10 +17,6 @@ def user_login(request):
         return render(request, 'login.html', dict(form=form))
 
 
-def home(request):
-    pass
-
-
 def user_list(request):
     pass
 

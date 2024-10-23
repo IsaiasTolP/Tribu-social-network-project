@@ -16,13 +16,13 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from shared import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', views.user_login),
-    path('echos/', views.home, name='home'),  # Revisar nombre de las vistas
+    path('echos/', include('shared.urls')),  # Revisar nombre de las vistas
     path('users/', views.user_list, name='user-list'),
     path('@<user>/', views.profile, name='profile'),
 ]
