@@ -22,7 +22,7 @@ from shared import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', views.user_login),
-    path('echos/', include('shared.urls')),  # Revisar nombre de las vistas
+    path('echos/', include('echos.urls')),  # Revisar nombre de las vistas
     path('users/', views.user_list, name='user-list'),
     path('@<user>/', views.profile, name='profile'),
 ]
