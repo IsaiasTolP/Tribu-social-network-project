@@ -27,17 +27,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'shared.apps.SharedConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shared.apps.SharedConfig',
     'echos.apps.EchosConfig',
     'waves.apps.WavesConfig',
 ]
@@ -124,3 +123,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# For login URLs
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'echos:echo-list'
+LOGOUT_URL = 'logout'

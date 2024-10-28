@@ -7,7 +7,14 @@ from .models import Echo
 
 @login_required
 def echo_list(request):
-    return render(request, 'echos/home.html')
+    echos = Echo.objects.all()
+    return render(
+        request,
+        'echos/home.html',
+        {
+            'echos': echos,
+        },
+    )
 
 
 @login_required

@@ -1,0 +1,27 @@
+{% extends "shared/base.html" %}
+{% block main %}
+{% if user.is_authenticated %}
+  <p>You already logged in <a href="{% url 'echos:echo-list' %}">Go home</a></p>
+
+{% else %}
+  {% if form.errors%}
+  <p>Wrong credentials</p>
+  {% endif %}
+  {% if next and next != '/' %}
+    {% if user.is_authenticated %}
+    <p>You don not have access</p>
+    {% else %}
+    <p>You are not logged in</p>
+    {% endif %}
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="hidden" name="next" value="{{ next }}">
+    <input type="submit" value="Login">
+    <p>Do not have an account? <a href="{% url 'signup' %}">Create one now!</a></p>
+  </form>
+
+{% endif %}
+{% endblock main %}

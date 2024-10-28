@@ -16,12 +16,17 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.contrib.auth.views import LoginView, LogoutView
+from django.shortcuts import redirect
 from django.urls import include, path
 from shared import views
 
 urlpatterns = [
+    path('', lambda _: redirect('echos:echo-list')),
     path('admin/', admin.site.urls),
-    path('login/', views.user_login),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('signup/', views.user_signup, name='signup'),
     path('echos/', include('echos.urls')),  # Revisar nombre de las vistas
     path('users/', views.user_list, name='user-list'),
     path('@<user>/', views.profile, name='profile'),
