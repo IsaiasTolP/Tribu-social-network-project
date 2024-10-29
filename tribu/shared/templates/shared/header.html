@@ -1,11 +1,17 @@
 {% extends "shared/base.html" %}
 {% block header %}
-<header>
+<header class="d-flex">
     <a href="{% url 'echos:echo-list' %}">all echos</a>
     <a href="{% url 'echos:create-echo' %}">Create echo</a>
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+    <a href="{% url 'user-list' %}">All users</a>
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    {% else %}
+        <a href="{% url 'login' %}"><button type="button">Login</button></a>
+    {% endif %}
+    
 </header>
 {% endblock header %}

@@ -1,0 +1,8 @@
+{% extends "shared/header.html" %}
+{% block main %}
+  {% for user in users %}
+    <h4>{{ user.username }}</h4>
+  {% empty %}
+  <p>There are no users in this social network</p>
+  {% endfor %}
+{% endblock main %}
