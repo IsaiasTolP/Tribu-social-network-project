@@ -3,6 +3,6 @@
 {% block main %}
     <p>{{ echo.content }}</p>
     {% if request.user == echo.user %}
-        <a href="{% url 'echos:echo-update' %}">
+        <a href="{% url 'echos:update-echo' echo.id %}">Update echo</a>
     {% endif %}
 {% endblock main %}
