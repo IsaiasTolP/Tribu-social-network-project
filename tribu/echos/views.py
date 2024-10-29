@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
+from waves.models import Wave
+
 from .forms import EchoForm
 from .models import Echo
 
@@ -16,20 +18,29 @@ def echo_list(request):
         },
     )
 
+
 @login_required
 def echo_detail(request, echo_id):
     echo = Echo.objects.get(id=echo_id)
-    return render(request, 'echos/detail.html', {'echo': echo},)
+    waves = Wave.objects.all()[:10]
+    return render(
+        request,
+        'echos/detail.html',
+        {
+            'echo': echo,
+            'waves': waves,
+        },
+    )
 
 
 @login_required
 def create_echo(request):
     form = EchoForm(request.POST or None)
     if (form := EchoForm(request.POST)).is_valid():
-            echo = form.save(commit=False)
-            echo.user = request.user
-            echo.save()
-            return redirect('echos:echo-list')
+        echo = form.save(commit=False)
+        echo.user = request.user
+        echo.save()
+        return redirect('echos:echo-list')
     else:
         form = EchoForm()
     return render(request, 'echos/echo-form.html', dict(form=form))
@@ -38,10 +49,12 @@ def create_echo(request):
 @login_required
 def update_echo(request, echo_id):
     echo = Echo.objects.get(id=echo_id)
+    if request.user != echo.user:
+        return redirect('echos:echo-detail', echo_id=echo_id)
     form = EchoForm(request.POST or None)
     if (form := EchoForm(request.POST, instance=echo)).is_valid():
-            form.save()
-            return redirect('echos:echo-list')
+        form.save()
+        return redirect('echos:echo-list')
     else:
         form = EchoForm(instance=echo)
     return render(request, 'echos/echo-form.html', dict(form=form))

@@ -1,0 +1,8 @@
+{% extends "shared/header.html" %}
+{% block main %}
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Create new Wave">
+</form>
+{% endblock main %}

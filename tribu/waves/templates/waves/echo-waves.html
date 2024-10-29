@@ -1,5 +1,6 @@
 {% extends "shared/header.html" %}
 {% block main %}
+  <p>The content of the echo: {{ echo.content }}</p>
   {% for wave in waves %}
     <p>{{ wave.content }}</p>
   {% endfor %}

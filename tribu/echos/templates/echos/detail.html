@@ -5,4 +5,9 @@
     {% if request.user == echo.user %}
         <a href="{% url 'echos:update-echo' echo.id %}">Update echo</a>
     {% endif %}
+    <a href="{% url 'waves:create-wave' echo.id %}">Wave this echo</a>
+    <a href="{% url 'waves:echo-waves' echo.id %}">See waves</a>
+    {% for wave in waves %}
+        <p>{{ wave.content }}</p>
+    {% endfor %}
 {% endblock main %}

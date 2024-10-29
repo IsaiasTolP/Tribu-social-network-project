@@ -1,6 +1,6 @@
-from django.shortcuts import redirect, render
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
 
 from .forms import SignupForm
 
@@ -28,10 +28,12 @@ def user_signup(request):
         return redirect('login')
     return render(request, 'registration/signup.html', dict(form=form))
 
+
 def successful_logout(request):
     if request.user.is_authenticated:
         return redirect('logout')
     return render(request, 'registration/logout.html')
+
 
 @login_required
 def user_list(request):
@@ -39,5 +41,6 @@ def user_list(request):
     return render(request, 'shared/users.html', {'users': users})
 
 
-def profile(request):
-    pass
+def profile(request, username):
+    user = get_user_model().objects.get(username=username)
+    return render(request, 'shared/profile.html', {'user': user})

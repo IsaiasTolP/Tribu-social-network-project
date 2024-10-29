@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
 from django.urls import include, path
+
 from shared import views
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path('logout/done', views.successful_logout, name='successful-logout'),
     path('signup/', views.user_signup, name='signup'),
     path('echos/', include('echos.urls')),  # Revisar nombre de las vistas
+    path('echos/<echo_id>/waves/', include('waves.urls')),
     path('users/', views.user_list, name='user-list'),
-    path('@<user>/', views.profile, name='profile'),
+    path('@<username>/', views.profile, name='profile'),
 ]
