@@ -12,10 +12,14 @@ def echo_waves(request, echo_id):
     return render(
         request,
         'waves/echo-waves.html',
-        {'waves': waves},
+        {
+            'echo': echo,
+            'waves': waves,
+        },
     )
 
 
 @login_required
-def create_wave(request):
+def create_wave(request, echo_id):
+    echo = Echo.objects.get(id=echo_id)
     pass
