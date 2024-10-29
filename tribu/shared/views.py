@@ -26,6 +26,10 @@ def user_signup(request):
         return redirect('login')
     return render(request, 'registration/signup.html', dict(form=form))
 
+def successful_logout(request):
+    if request.user.is_authenticated:
+        return redirect('logout')
+    return render(request, 'registration/logout.html')
 
 def user_list(request):
     pass

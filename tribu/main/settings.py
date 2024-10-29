@@ -124,7 +124,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# For login URLs
+# For login/logout URLs
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'echos:echo-list'
-LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'successful-logout'

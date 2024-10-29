@@ -1,0 +1,8 @@
+{% extends "shared/header.html" %}
+{% block title %}Hola{% endblock title %}
+{% block main %}
+    <p>{{ echo.content }}</p>
+    {% if request.user == echo.user %}
+        <a href="{% url 'echos:echo-update' %}">
+    {% endif %}
+{% endblock main %}

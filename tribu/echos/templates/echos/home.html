@@ -1,8 +1,9 @@
-{% extends "shared/base.html" %}
+{% extends "shared/header.html" %}
 {% block main %}
 {% for echo in echos %}
   <p>Han dicho: {{ echo.content }}</p>
+  <a href="{% url 'echos:echo-detail' echo.id %}">See in detail</a>
 {% empty %}
-  <h2>Raton</h2>
+  <h2>Currently, there are not echos</h2>
 {% endfor %}
 {% endblock main %}

@@ -16,12 +16,19 @@ def echo_list(request):
         },
     )
 
+@login_required
+def echo_detail(request, echo_id):
+    echo = Echo.objects.get(id=echo_id)
+    return render(request, 'echos/detail.html', {'echo': echo},)
+
 
 @login_required
 def create_echo(request):
-    if request.method == 'POST':
-        if (form := EchoForm(request.POST)).is_valid():
-            form.save()
+    form = EchoForm(request.POST or None)
+    if (form := EchoForm(request.POST)).is_valid():
+            echo = form.save(commit=False)
+            echo.user = request.user
+            echo.save()
             return redirect('echos:echo-list')
     else:
         form = EchoForm()
@@ -31,8 +38,8 @@ def create_echo(request):
 @login_required
 def update_echo(request, echo_id):
     echo = Echo.objects.get(id=echo_id)
-    if request.method == 'POST':
-        if (form := EchoForm(request.POST, instance=echo)).is_valid():
+    form = EchoForm(request.POST or None)
+    if (form := EchoForm(request.POST, instance=echo)).is_valid():
             form.save()
             return redirect('echos:echo-list')
     else:

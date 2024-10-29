@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/done', views.successful_logout, name='successful-logout'),
     path('signup/', views.user_signup, name='signup'),
     path('echos/', include('echos.urls')),  # Revisar nombre de las vistas
     path('users/', views.user_list, name='user-list'),
