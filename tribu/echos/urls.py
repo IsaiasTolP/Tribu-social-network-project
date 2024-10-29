@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 
 from . import views
 
@@ -9,4 +9,5 @@ urlpatterns = [
     path('add/', views.create_echo, name='create-echo'),
     path('<echo_id>/', views.echo_detail, name='echo-detail'),
     path('<echo_id>/edit/', views.update_echo, name='update-echo'),
+    path('<echo_id>/waves/', include('waves.urls')),
 ]
