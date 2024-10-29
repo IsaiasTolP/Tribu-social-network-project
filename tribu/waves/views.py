@@ -23,3 +23,9 @@ def echo_waves(request, echo_id):
 def create_wave(request, echo_id):
     echo = Echo.objects.get(id=echo_id)
     pass
+
+
+@login_required
+def update_wave(request, wave_id):
+    wave = Wave.objects.get(id=wave_id)
+    pass
