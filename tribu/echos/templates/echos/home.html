@@ -1,7 +1,8 @@
 {% extends "shared/header.html" %}
 {% block main %}
 {% for echo in echos %}
-  <p>Han dicho: {{ echo.content }}</p>
+  <p>{{ echo.user.username }}</p>
+  <p>{{ echo.content|truncatewords:20 }}</p>
   <a href="{% url 'echos:echo-detail' echo.id %}">See in detail</a>
 {% empty %}
   <h2>Currently, there are not echos</h2>

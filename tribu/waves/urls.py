@@ -6,6 +6,6 @@ app_name = 'waves'
 
 urlpatterns = [
     path('', views.echo_waves, name='echo-waves'),
-    path('add/', views.create_wave, name='create-wave'),
-    path('<wave_id>/update', views.update_wave, name='update-wave'),
+    path('<wave_id>/update/', views.update_wave, name='update-wave'),
+    path('<wave_id>/delete/', views.delete_wave, name='delete-wave'),
 ]

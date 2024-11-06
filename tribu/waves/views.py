@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
 
 from echos.models import Echo
@@ -30,7 +31,7 @@ def create_wave(request, echo_id):
         wave.user = request.user
         wave.echo = echo
         wave.save()
-        return redirect('waves:echo-waves', echo_id=echo.id)
+        return redirect('echos:echo-waves', echo_id=echo.id)
     else:
         form = WaveForm()
     return render(request, 'waves/wave-form.html', dict(form=form))
@@ -39,9 +40,9 @@ def create_wave(request, echo_id):
 @login_required
 def update_wave(request, wave_id):
     wave = Wave.objects.get(id=wave_id)
-    echo_id = wave.echo.id
-    if request.user != wave.user:
-        return redirect('waves:echo-waves', echo_id=echo_id)
+    echo_id = wave.echo.pk
+    if request.user != wave.user:  # Separar del código
+        return HttpResponseForbidden()
     form = WaveForm(request.POST or None)
     if (form := WaveForm(request.POST, instance=wave)).is_valid():
         form.save()
@@ -49,3 +50,12 @@ def update_wave(request, wave_id):
     else:
         form = WaveForm(instance=wave)
     return render(request, 'waves/wave-form.html', dict(form=form))
+
+
+@login_required
+def delete_wave(request, wave_id):
+    wave = Wave.objects.get(id=wave_id)
+    if request.user != wave.user:
+        return HttpResponseForbidden()
+    wave.delete()
+    return redirect('echos:echo-list')

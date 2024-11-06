@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.urls import include, path
 
@@ -26,11 +26,10 @@ urlpatterns = [
     path('', lambda _: redirect('echos:echo-list')),
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', views.logout_view, name='logout'),
     path('logout/done', views.successful_logout, name='successful-logout'),
     path('signup/', views.user_signup, name='signup'),
-    path('echos/', include('echos.urls')),  # Revisar nombre de las vistas
-    path('echos/<echo_id>/waves/', include('waves.urls')),
-    path('users/', views.user_list, name='user-list'),
-    path('@<username>/', views.profile, name='profile'),
+    path('echos/', include('echos.urls')),
+    path('waves/', include('waves.urls')),
+    path('users/', include('users.urls')),
 ]

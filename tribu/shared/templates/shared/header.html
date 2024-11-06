@@ -3,7 +3,7 @@
 <header class="d-flex">
     <a href="{% url 'echos:echo-list' %}">all echos</a>
     <a href="{% url 'echos:create-echo' %}">Create echo</a>
-    <a href="{% url 'user-list' %}">All users</a>
+    <a href="{% url 'users:user-list' %}">All users</a>
     {% if request.user.is_authenticated %}
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
