@@ -14,7 +14,7 @@ def echo_waves(request, echo_id):
     waves = Wave.objects.filter(echo=echo)
     return render(
         request,
-        'waves/echo-waves.html',
+        'echos/detail.html',
         {
             'echo': echo,
             'waves': waves,
@@ -46,7 +46,7 @@ def update_wave(request, wave_id):
     form = WaveForm(request.POST or None)
     if (form := WaveForm(request.POST, instance=wave)).is_valid():
         form.save()
-        return redirect('waves:echos-waves', echo_id=echo_id)
+        return redirect('echos:echo-waves', echo_id=echo_id)
     else:
         form = WaveForm(instance=wave)
     return render(request, 'waves/wave-form.html', dict(form=form))

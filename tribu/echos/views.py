@@ -35,20 +35,6 @@ def echo_detail(request, echo_id):
 
 
 @login_required
-def echo_waves(request, echo_id):
-    echo = Echo.objects.get(id=echo_id)
-    waves = Wave.objects.filter(echo=echo)
-    return render(
-        request,
-        'echos/detail.html',
-        {
-            'echo': echo,
-            'waves': waves,
-        },
-    )
-
-
-@login_required
 def create_echo(request):
     form = EchoForm(request.POST or None)
     if (form := EchoForm(request.POST)).is_valid():
