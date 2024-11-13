@@ -1,6 +1,8 @@
 {% extends "shared/header.html" %}
 {% block main %}
   <h1><a href="{% url 'users:profile' user.username %}">{{ user }}</a></h1>
+  <p>{{ profile.avatar }}</p>
+  <p>{{ profile.bio }}</p>
   {% for echo in echos %}
     <p>{{ echo.content }}</p>
     <p>{{ echo.created_at }}</p>

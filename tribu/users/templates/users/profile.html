@@ -1,9 +1,11 @@
 {% extends "shared/header.html" %}
 {% block main %}
   <h1>{{ user }}</h1>
-  <p></p>
-  <p></p>
-  <p></p>
+  <p>{{ profile.avatar }}</p>
+  <p>{{ profile.bio }}</p>
+  <p>{{ user.first_name }}</p>
+  <p>{{ user.last_name }}</p>
+  <p>{{ user.email }}</p>
   {% for echo in echos %}
     <p>{{ echo.content }}</p>
     <p>{{ echo.created_at }}</p>
