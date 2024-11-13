@@ -4,7 +4,7 @@
 {% if request.user == user %}
   <a href="{% url 'users:edit-profile' user.username %}">Edit profile</a>
 {% endif %}
-  <img src="{{ user.profile.avatar }}" alt="User avatar">
+  <img src="{{ user.profile.avatar.url }}" alt="User avatar">
   <p>{{ user.profile.bio }}</p>
   <p>{{ user.first_name }}</p>
   <p>{{ user.last_name }}</p>

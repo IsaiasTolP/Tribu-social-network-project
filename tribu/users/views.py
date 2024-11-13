@@ -40,10 +40,10 @@ def edit_profile(request, username):
     profile = Profile.objects.get(user=user)
     if request.user != user:
         return HttpResponseForbidden()
-    form = ProfileForm(request.POST or None)
-    if (form := ProfileForm(request.POST, instance=profile)).is_valid():
-        form.save()
-        return redirect('users:my-profile')
+    if request.method == 'POST':
+        if (form := ProfileForm(request.POST, request.FILES, instance=profile)).is_valid():
+            form.save()
+            return redirect('users:my-profile')
     else:
         form = ProfileForm(instance=profile)
-    return render('users/profile-form.html', dict(form=form))
+    return render(request, 'users/profile-form.html', dict(form=form))
