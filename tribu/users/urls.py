@@ -9,4 +9,5 @@ urlpatterns = [
     path('@me/', views.my_profile, name='my-profile'),
     path('<username>/', views.profile, name='profile'),
     path('<username>/echos/', views.user_echo_list, name='user-echo-list'),
+    path('<username>/edit/', views.edit_profile, name='edit-profile'),
 ]

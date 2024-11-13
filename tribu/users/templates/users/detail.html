@@ -1,8 +1,12 @@
 {% extends "shared/header.html" %}
 {% block main %}
-  <h1><a href="{% url 'users:profile' user.username %}">{{ user }}</a></h1>
-  <p>{{ profile.avatar }}</p>
-  <p>{{ profile.bio }}</p>
+{% if request.user == user %}
+  <a href="{% url 'users:edit-profile' user.username %}">Edit profile</a>
+{% endif %}
+
+  <h1><a href="{% url 'users:profile' user.username %}">{{ user.username }}</a></h1>
+  <img src="{{ user.profile.avatar }}" alt="User avatar">
+  <p>{{ user.profile.bio }}</p>
   {% for echo in echos %}
     <p>{{ echo.content }}</p>
     <p>{{ echo.created_at }}</p>

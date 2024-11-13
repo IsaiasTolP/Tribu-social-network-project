@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from users.models import Profile
 
 
 class SignupForm(forms.ModelForm):
@@ -12,3 +13,11 @@ class SignupForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
+    def save(self, *args, **kwargs):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password'])
+        user = super().save(*args, **kwargs)
+        profile = Profile(user=user)
+        profile.save()
+        return user

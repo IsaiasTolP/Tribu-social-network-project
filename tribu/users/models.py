@@ -10,6 +10,7 @@ class Profile(models.Model):
     avatar = models.ImageField(
         blank=True,
         null=True,
-        upload_to='uploads',
+        upload_to='avatars',
+        default='avatars/noavatar.png',
     )
     bio = models.TextField(blank=True)

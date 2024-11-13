@@ -22,9 +22,7 @@ def user_login(request):
 def user_signup(request):
     form = SignupForm(request.POST or None)
     if (form := SignupForm(request.POST)).is_valid():
-        user = form.save(commit=False)
-        user.set_password(form.cleaned_data['password'])
-        user.save()
+        user = form.save()
         login(request, user)
         return redirect('echos:echo-list')
     return render(request, 'registration/signup.html', dict(form=form))
