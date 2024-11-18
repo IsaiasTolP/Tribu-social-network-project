@@ -1,16 +1,35 @@
 {% extends "shared/header.html" %}
 {% block main %}
-  <h1>{{ user }}</h1>
-{% if request.user == user %}
-  <a href="{% url 'users:edit-profile' user.username %}">Edit profile</a>
-{% endif %}
-  <img src="{{ user.profile.avatar.url }}" alt="User avatar">
-  <p>{{ user.profile.bio }}</p>
-  <p>{{ user.first_name }}</p>
-  <p>{{ user.last_name }}</p>
-  <p>{{ user.email }}</p>
-  {% for echo in echos %}
-    <p>{{ echo.content }}</p>
-    <p>{{ echo.created_at }}</p>
-  {% endfor %}
+<div class="container mt-5">
+    <h1 class="mb-4">{{ user.username }}</h1>
+
+    <div class="card mb-4">
+        <div class="card-body text-center">
+            <img src="{{ user.profile.avatar.url }}" alt="User  avatar" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+            <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+            <p class="card-text">{{ user.profile.bio }}</p>
+            <p class="card-text"><small class="text-muted">{{ user.email }}</small></p>
+            {% if request.user == user %}
+            <a href="{% url 'users:edit-profile' user.username %}" class="btn btn-warning">Edit profile</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <h4>Echos:</h4>
+    <div class="list-group">
+        {% for echo in echos %}
+        <div class="list-group-item mt-4">
+            <p class="mb-1">{{ echo.content }}</p>
+            <small class="text-muted">{{ echo.created_at }}</small>
+        </div>
+        {% empty %}
+        <div class="list-group-item">
+            <p>No echos yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% if echos_length > 5 %}
+        <a href="{% url 'users:user-echo-list' user.username %}">See more echos</a>
+    {% endif %}
+</div>
 {% endblock main %}

@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
-
 from waves.models import Wave
 
 from .forms import EchoForm
@@ -23,13 +22,16 @@ def echo_list(request):
 @login_required
 def echo_detail(request, echo_id):
     echo = Echo.objects.get(id=echo_id)
-    waves = Wave.objects.filter(echo=echo)[:5]
+    waves = Wave.objects.filter(echo=echo)
+    waves_length = waves.count()
+    waves = waves[:5]
     return render(
         request,
         'echos/detail.html',
         {
             'echo': echo,
             'waves': waves,
+            'waves_length': waves_length,
         },
     )
 

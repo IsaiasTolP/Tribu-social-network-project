@@ -1,15 +1,37 @@
 {% extends "shared/header.html" %}
-{% block title %}Hola{% endblock title %}
+{% block title %}The waves of the echo{% endblock title %}
 {% block main %}
-    <p>{{ echo.user.username }}</p>
-    <p>{{ echo.content }}</p>
-    {% if request.user == echo.user %}
-        <a href="{% url 'echos:update-echo' echo.id %}">Update echo</a>
-        <a href="{% url 'echos:delete-echo' echo.id %}">Delete echo</a>
-    {% endif %}
-    <a href="{% url 'echos:create-wave' echo.id %}">Wave this echo</a>
-    {% for wave in waves %}
-        <p>{{ wave.user.username }}</p>
-        <p>{{ wave.content }}</p>
-    {% endfor %}
+<div class="container mt-5">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title"><img src="{{ echo.user.profile.avatar.url }}" alt="Profile picture" width="75px"> {{ echo.user.username }}</h4>
+            <p class="card-text">{{ echo.content }}</p>
+            {% if request.user == echo.user %}
+            <div class="btn-group" role="group" aria-label="User  actions">
+                <a href="{% url 'echos:update-echo' echo.id %}" class="btn btn-warning">Actualizar echo</a>
+                <a href="{% url 'echos:delete-echo' echo.id %}" class="btn btn-danger">Eliminar echo</a>
+            </div>
+            {% endif %}
+            <a href="{% url 'echos:create-wave' echo.id %}" class="btn btn-primary mt-3">Wave this echo</a>
+        </div>
+    </div>
+
+    <h4>Waves:</h4>
+    <div class="list-group">
+        {% for wave in waves %}
+        <div class="list-group-item mt-3" style="border-top-width: 0px;">
+            <h5 class="mb-1"><img src="{{ wave.user.profile.avatar.url }}" alt="Profile picture" width="50px"> {{ wave.user.username }}</h5>
+            <p class="mb-1">{{ wave.content }}</p>
+        </div>
+        {% empty %}
+        <div class="list-group-item">
+            <p>No waves yet.</p>
+        </div>
+        {% endfor %}
+        {% if waves_length > 5 %}
+            <a href="{% url 'echos:echo-waves' echo.id %}">See all waves</a>
+        {% endif %}
+        
+    </div>
+</div>
 {% endblock main %}

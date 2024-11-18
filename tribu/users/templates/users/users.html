@@ -1,8 +1,20 @@
 {% extends "shared/header.html" %}
 {% block main %}
-  {% for user in users %}
-    <h4><a href="{% url 'users:profile' user.username %}">{{ user.username }}</a></h4>
-  {% empty %}
-  <p>There are no users in this social network</p>
-  {% endfor %}
+<div class="container mt-5">
+    <h1 class="mb-4">Lista de Usuarios</h1>
+
+    {% if users %}
+    <div class="list-group">
+        {% for user in users %}
+        <a href="{% url 'users:profile' user.username %}" class="list-group-item list-group-item-action">
+            {{ user.username }}
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        No hay usuarios en esta red social.
+    </div>
+    {% endif %}
+</div>
 {% endblock main %}

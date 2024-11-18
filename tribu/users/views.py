@@ -17,15 +17,19 @@ def user_list(request):
 @login_required
 def profile(request, username):
     user = get_user_model().objects.get(username=username)
-    echos = Echo.objects.filter(user=user)[:5]
-    return render(request, 'users/profile.html', {'user': user, 'echos': echos})
+    echos = Echo.objects.filter(user=user)
+    echos_length = echos.count()
+    echos = echos[:5]
+    return render(
+        request, 'users/profile.html', {'user': user, 'echos': echos, 'echos_length': echos_length}
+    )
 
 
 @login_required
 def user_echo_list(request, username):
     user = get_user_model().objects.get(username=username)
     echos = Echo.objects.filter(user=user)
-    return render(request, 'users/detail.html', {'user': user, 'echos': echos})
+    return render(request, 'users/profile.html', {'user': user, 'echos': echos})
 
 
 @login_required

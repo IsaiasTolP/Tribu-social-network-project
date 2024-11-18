@@ -1,10 +1,24 @@
 {% extends "shared/header.html" %}
 {% block main %}
-{% for echo in echos %}
-  <p>{{ echo.user.username }}</p>
-  <p>{{ echo.content|truncatewords:20 }}</p>
-  <a href="{% url 'echos:echo-detail' echo.id %}">See in detail</a>
-{% empty %}
-  <h2>Currently, there are not echos</h2>
-{% endfor %}
+<div class="container mt-5">
+    <h1 class="mb-4">Echos</h1>
+    <div class="row">
+        {% for echo in echos %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><img src="{{ user.profile.avatar.url }}" alt="Profile picture" width="50px"> {{ echo.user.username }}</h5>
+                    
+                    <p class="card-text">{{ echo.content|truncatewords:20 }}</p>
+                    <a href="{% url 'echos:echo-detail' echo.id %}" class="btn btn-primary">Ver detalle</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <h2 class="text-center">Actualmente, no hay echos</h2>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock main %}
