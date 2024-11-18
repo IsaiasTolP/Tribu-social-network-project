@@ -6,3 +6,4 @@ justfile
 Lib
 Scripts
 pyvenv.cfg
+media
